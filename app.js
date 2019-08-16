@@ -7,7 +7,8 @@ const bodyParser = require("body-parser");
 
 // api routes
 const users = require("./routes/api/users");
-const guides = require("./routes/api/guides");
+const journals = require("./routes/api/journals");
+const entries = require("./routes/api/entries");
 
 
 // mongoDB connection
@@ -26,7 +27,8 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use("/api/users", users);
-app.use("/api/guides", guides);
+app.use("/api/journals", journals);
+app.use("/api/entries", entries);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
