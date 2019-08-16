@@ -6,6 +6,10 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require('passport');
 
+// input validations
+const validateRegisterInput = require("../../validation/register");
+const validateLogin = require("../../validation/login");
+
 // test route can be removed
 router.get("/test", (req,res) => {
   res.json({msg: "this is the user route"});
@@ -19,9 +23,14 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   })
 })
 
-
 // register a new user
 router.post("/register", (req,res) => {
+  // check if input was valid, if not return errors
+  const { errors, isValid } = validateRegisterInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({username: req.body.username})
     .then(user => {
       if (user) {
@@ -33,9 +42,9 @@ router.post("/register", (req,res) => {
           password: req.body.password
         });
 
-        bcrypt.genSalt(10, (err,salt) => {
+        bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
+            if(err) throw err;
             newUser.password = hash;
             newUser.save()
               .then(user => res.json(user))
@@ -46,9 +55,14 @@ router.post("/register", (req,res) => {
     })
 })
 
-
 // log in existing user
 router.post("/login", (req,res) => {
+  // check if input was valid, if not return errors
+  const { errors, isValid } = validateLogin(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const username = req.body.username;
   const password = req.body.password;
 
@@ -74,6 +88,5 @@ router.post("/login", (req,res) => {
         })
     })
 });
-
 
 module.exports = router;
