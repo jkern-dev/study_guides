@@ -6,8 +6,10 @@ const journalReducer = (state = { all: {}, user: {}, new: undefined}, action) =>
   switch(action.type) {
     case RECEIVE_USER_JOURNALS:
       newState.user = action.journals.data;
+      return newState;
     case RECEIVE_NEW_JOURNAL:
       newState.new = action.journal.data;
+      return newState;
     default:
       return state;
   }
