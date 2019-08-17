@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getUserJournals = id => {
-  return axios.get(`/api/user/${id}`)
+  return axios.get(`/api/journals/user/${id}`)
 }
 
 export const writeJournal = data => {

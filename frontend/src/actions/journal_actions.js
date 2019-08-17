@@ -13,8 +13,8 @@ export const receiveNewJournal = journal => ({
   journal
 });
 
-export const fetchUserJournals = () => dispatch => (
-  getUserJournals()
+export const fetchUserJournals = (id) => dispatch => (
+  getUserJournals(id)
     .then(journals => dispatch(receiveUserJournals(journals)))
     .catch(err => console.log(err))
 );
