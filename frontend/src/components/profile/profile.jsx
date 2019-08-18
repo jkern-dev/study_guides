@@ -27,7 +27,7 @@ class Profile extends React.Component {
         <div>
           <h2>All of this users journals</h2>
           {this.state.journals.map(journal => (
-            <JournalBox key={journal.id} title={journal.title} />
+            <JournalBox key={journal._id} title={journal.title} journalID={journal._id} />
           ))}
         </div>
       );

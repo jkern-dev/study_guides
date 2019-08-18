@@ -8,7 +8,7 @@ import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import ProfileContainer from './profile/profile_container';
 import JournalCreateContainer from './journals/journal_compose_container';
-
+import EntriesContainer from './entries/entries_container';
 
 const App = () => (
   <div>
@@ -20,6 +20,7 @@ const App = () => (
 
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       <ProtectedRoute exact path="/new_journal" component={JournalCreateContainer} />
+      <ProtectedRoute exact path="/journal/:id" component={EntriesContainer} />
     </Switch>
   </div>
 );
